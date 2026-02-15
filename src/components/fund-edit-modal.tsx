@@ -8,6 +8,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import Modal from "./ui/modal";
 
 type FormData = z.infer<typeof fundSchema>;
 
@@ -69,49 +70,45 @@ export default function FundEditModal({ fund }: { fund: any }) {
       </button>
 
       {open && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
-          <div className="bg-white rounded-2xl p-6 w-full max-w-md">
-            <h2 className="text-lg font-semibold mb-4">Edit Fund</h2>
+        <Modal open={open} onClose={() => setOpen(false)} title="Edit Fund">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <input
+              {...register("name")}
+              className="w-full border p-3 rounded-xl"
+            />
 
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              <input
-                {...register("name")}
-                className="w-full border p-3 rounded-xl"
-              />
+            <select
+              {...register("type")}
+              className="w-full border p-3 rounded-xl"
+            >
+              <option value="spendable">Spendable</option>
+              <option value="locked">Locked</option>
+            </select>
 
-              <select
-                {...register("type")}
-                className="w-full border p-3 rounded-xl"
-              >
-                <option value="spendable">Spendable</option>
-                <option value="locked">Locked</option>
-              </select>
+            <input
+              type="number"
+              {...register("allocation_pct", {
+                valueAsNumber: true,
+              })}
+              className="w-full border p-3 rounded-xl"
+            />
 
-              <input
-                type="number"
-                {...register("allocation_pct", {
-                  valueAsNumber: true,
-                })}
-                className="w-full border p-3 rounded-xl"
-              />
+            {errors.allocation_pct && (
+              <p className="text-red-500 text-sm">0–100 only</p>
+            )}
 
-              {errors.allocation_pct && (
-                <p className="text-red-500 text-sm">0–100 only</p>
-              )}
-
-              <button className="w-full bg-black text-white py-3 rounded-xl">
-                Save Changes
-              </button>
-              <button
-                type="button"
-                onClick={handleDelete}
-                className="w-full bg-red-600 text-white py-3 rounded-xl"
-              >
-                Delete Fund
-              </button>
-            </form>
-          </div>
-        </div>
+            <button className="w-full bg-black text-white py-3 rounded-xl">
+              Save Changes
+            </button>
+            <button
+              type="button"
+              onClick={handleDelete}
+              className="w-full bg-red-600 text-white py-3 rounded-xl"
+            >
+              Delete Fund
+            </button>
+          </form>
+        </Modal>
       )}
     </>
   );

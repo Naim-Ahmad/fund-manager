@@ -77,43 +77,36 @@ export default function ExpenseForm() {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-md p-6 mb-8">
-      <h2 className="text-xl font-semibold mb-4">Add Expense</h2>
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <select {...register("fund_id")} className="w-full border p-3 rounded-xl">
+        <option value="">Select Fund</option>
+        {funds?.map((fund) => (
+          <option key={fund.id} value={fund.id}>
+            {fund.name} (৳ {Number(fund.balance).toLocaleString()})
+          </option>
+        ))}
+      </select>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <select
-          {...register("fund_id")}
-          className="w-full border p-3 rounded-xl"
-        >
-          <option value="">Select Fund</option>
-          {funds?.map((fund) => (
-            <option key={fund.id} value={fund.id}>
-              {fund.name} (৳ {Number(fund.balance).toLocaleString()})
-            </option>
-          ))}
-        </select>
+      <input
+        type="number"
+        step="0.01"
+        {...register("amount", { valueAsNumber: true })}
+        placeholder="Expense Amount"
+        className="w-full border p-3 rounded-xl"
+      />
+      {errors.amount && (
+        <p className="text-red-500 text-sm">Enter valid amount</p>
+      )}
 
-        <input
-          type="number"
-          step="0.01"
-          {...register("amount", { valueAsNumber: true })}
-          placeholder="Expense Amount"
-          className="w-full border p-3 rounded-xl"
-        />
-        {errors.amount && (
-          <p className="text-red-500 text-sm">Enter valid amount</p>
-        )}
+      <input
+        {...register("note")}
+        placeholder="Note (optional)"
+        className="w-full border p-3 rounded-xl"
+      />
 
-        <input
-          {...register("note")}
-          placeholder="Note (optional)"
-          className="w-full border p-3 rounded-xl"
-        />
-
-        <button className="w-full bg-red-600 text-white py-3 rounded-xl">
-          Deduct Expense
-        </button>
-      </form>
-    </div>
+      <button className="w-full bg-red-600 text-white py-3 rounded-xl">
+        Deduct Expense
+      </button>
+    </form>
   );
 }

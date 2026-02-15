@@ -76,25 +76,21 @@ export default function IncomeForm() {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-md p-6 mb-8">
-      <h2 className="text-xl font-semibold mb-4">Add Income</h2>
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <input
+        type="number"
+        step="0.01"
+        {...register("amount", { valueAsNumber: true })}
+        placeholder="Income Amount"
+        className="w-full border p-3 rounded-xl"
+      />
+      {errors.amount && (
+        <p className="text-red-500 text-sm">Enter valid amount</p>
+      )}
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <input
-          type="number"
-          step="0.01"
-          {...register("amount", { valueAsNumber: true })}
-          placeholder="Income Amount"
-          className="w-full border p-3 rounded-xl"
-        />
-        {errors.amount && (
-          <p className="text-red-500 text-sm">Enter valid amount</p>
-        )}
-
-        <button className="w-full bg-black text-white py-3 rounded-xl">
-          Distribute Income
-        </button>
-      </form>
-    </div>
+      <button className="w-full bg-black text-white py-3 rounded-xl">
+        Distribute Income
+      </button>
+    </form>
   );
 }

@@ -95,50 +95,46 @@ export default function TransferForm() {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-md p-6 mb-8">
-      <h2 className="text-xl font-semibold mb-4">Transfer Between Funds</h2>
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <select
+        {...register("from_fund_id")}
+        className="w-full border p-3 rounded-xl"
+      >
+        <option value="">From Fund</option>
+        {funds?.map((fund) => (
+          <option key={fund.id} value={fund.id}>
+            {fund.name} (৳ {Number(fund.balance).toLocaleString()})
+          </option>
+        ))}
+      </select>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <select
-          {...register("from_fund_id")}
-          className="w-full border p-3 rounded-xl"
-        >
-          <option value="">From Fund</option>
-          {funds?.map((fund) => (
-            <option key={fund.id} value={fund.id}>
-              {fund.name} (৳ {Number(fund.balance).toLocaleString()})
-            </option>
-          ))}
-        </select>
+      <select
+        {...register("to_fund_id")}
+        className="w-full border p-3 rounded-xl"
+      >
+        <option value="">To Fund</option>
+        {funds?.map((fund) => (
+          <option key={fund.id} value={fund.id}>
+            {fund.name}
+          </option>
+        ))}
+      </select>
 
-        <select
-          {...register("to_fund_id")}
-          className="w-full border p-3 rounded-xl"
-        >
-          <option value="">To Fund</option>
-          {funds?.map((fund) => (
-            <option key={fund.id} value={fund.id}>
-              {fund.name}
-            </option>
-          ))}
-        </select>
+      <input
+        type="number"
+        step="0.01"
+        {...register("amount", { valueAsNumber: true })}
+        placeholder="Transfer Amount"
+        className="w-full border p-3 rounded-xl"
+      />
 
-        <input
-          type="number"
-          step="0.01"
-          {...register("amount", { valueAsNumber: true })}
-          placeholder="Transfer Amount"
-          className="w-full border p-3 rounded-xl"
-        />
+      {errors.amount && (
+        <p className="text-red-500 text-sm">Enter valid amount</p>
+      )}
 
-        {errors.amount && (
-          <p className="text-red-500 text-sm">Enter valid amount</p>
-        )}
-
-        <button className="w-full bg-blue-600 text-white py-3 rounded-xl">
-          Transfer
-        </button>
-      </form>
-    </div>
+      <button className="w-full bg-blue-600 text-white py-3 rounded-xl">
+        Transfer
+      </button>
+    </form>
   );
 }

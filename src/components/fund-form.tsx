@@ -33,8 +33,6 @@ export default function FundForm() {
   const onSubmit = async (values: FormData) => {
     const updatedFunds = [...(existingFunds ?? []), values];
 
-    console.log(updatedFunds);
-
     const { isValid } = validateAllocationTotal(updatedFunds);
 
     if (!isValid) {
@@ -54,36 +52,32 @@ export default function FundForm() {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-md p-6">
-      <h2 className="text-xl font-semibold mb-4">Create Fund</h2>
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <input
+        {...register("name")}
+        placeholder="Fund Name"
+        className="w-full border p-3 rounded-xl"
+      />
+      {errors.name && <p className="text-red-500 text-sm">Required</p>}
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <input
-          {...register("name")}
-          placeholder="Fund Name"
-          className="w-full border p-3 rounded-xl"
-        />
-        {errors.name && <p className="text-red-500 text-sm">Required</p>}
+      <select {...register("type")} className="w-full border p-3 rounded-xl">
+        <option value="spendable">Spendable</option>
+        <option value="locked">Locked</option>
+      </select>
 
-        <select {...register("type")} className="w-full border p-3 rounded-xl">
-          <option value="spendable">Spendable</option>
-          <option value="locked">Locked</option>
-        </select>
+      <input
+        type="number"
+        {...register("allocation_pct", { valueAsNumber: true })}
+        placeholder="Allocation %"
+        className="w-full border p-3 rounded-xl"
+      />
+      {errors.allocation_pct && (
+        <p className="text-red-500 text-sm">0–100 only</p>
+      )}
 
-        <input
-          type="number"
-          {...register("allocation_pct", { valueAsNumber: true })}
-          placeholder="Allocation %"
-          className="w-full border p-3 rounded-xl"
-        />
-        {errors.allocation_pct && (
-          <p className="text-red-500 text-sm">0–100 only</p>
-        )}
-
-        <button className="w-full bg-black text-white py-3 rounded-xl">
-          Add Fund
-        </button>
-      </form>
-    </div>
+      <button className="w-full bg-black text-white py-3 rounded-xl">
+        Add Fund
+      </button>
+    </form>
   );
 }
