@@ -16,6 +16,6 @@ export function validateAllocationTotal(funds: { allocation_pct: number }[]) {
 
   return {
     total,
-    isValid: total === 100,
+    isValid: total <= 100,
   };
 }
