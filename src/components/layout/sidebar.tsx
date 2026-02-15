@@ -28,8 +28,8 @@ export default function Sidebar({
   return (
     <aside
       className={`bg-white border-r border-gray-100 transition-all duration-300 ${
-        collapsed ? "w-20" : "w-64"
-      } hidden md:flex flex-col`}
+        collapsed ? "w-14" : "w-64"
+      }  md:flex flex-col`}
     >
       <div className="flex items-center justify-between p-4">
         {!collapsed && <h2 className="font-semibold text-lg">Fund Manager</h2>}

@@ -2,6 +2,7 @@
 
 import { supabase } from "@/lib/supabase/client";
 import { useQuery } from "@tanstack/react-query";
+import { ArrowLeftRight, MinusCircle, PlusCircle, Wallet } from "lucide-react";
 import { useState } from "react";
 import ExpenseForm from "./expense-form";
 import FundCard from "./fund-card";
@@ -29,30 +30,34 @@ export default function Dashboard() {
       <div className="flex flex-wrap gap-4 mb-8">
         <button
           onClick={() => setIncomeOpen(true)}
-          className="px-4 py-2 bg-black text-white rounded-xl"
+          className="flex items-center gap-2 px-4 py-2 bg-black text-white rounded-xl hover:opacity-90 transition"
         >
-          Add Income
+          <PlusCircle size={18} />
+          <span className="hidden md:inline">Add Income</span>
         </button>
 
         <button
           onClick={() => setExpenseOpen(true)}
-          className="px-4 py-2 bg-red-600 text-white rounded-xl"
+          className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-xl hover:opacity-90 transition"
         >
-          Add Expense
+          <MinusCircle size={18} />
+          <span className="hidden md:inline">Add Expense</span>
         </button>
 
         <button
           onClick={() => setTransferOpen(true)}
-          className="px-4 py-2 bg-blue-600 text-white rounded-xl"
+          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-xl hover:opacity-90 transition"
         >
-          Transfer Funds
+          <ArrowLeftRight size={18} />
+          <span className="hidden md:inline">Transfer Funds</span>
         </button>
 
         <button
           onClick={() => setFundOpen(true)}
-          className="px-4 py-2 bg-green-600 text-white rounded-xl"
+          className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-xl hover:opacity-90 transition"
         >
-          Create Fund
+          <Wallet size={18} />
+          <span className="hidden md:inline">Create Fund</span>
         </button>
       </div>
 

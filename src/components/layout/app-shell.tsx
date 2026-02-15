@@ -11,10 +11,12 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-gray-100 flex">
-      <Sidebar
-        collapsed={collapsed}
-        toggleCollapse={() => setCollapsed((prev) => !prev)}
-      />
+      <div className="hidden md:block h-screen bg-white">
+        <Sidebar
+          collapsed={collapsed}
+          toggleCollapse={() => setCollapsed((prev) => !prev)}
+        />
+      </div>
 
       <MobileSidebar open={mobileOpen} onClose={() => setMobileOpen(false)} />
 

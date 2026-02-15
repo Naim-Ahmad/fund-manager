@@ -3,6 +3,7 @@
 import FundEditModal from "./fund-edit-modal";
 
 export default function FundCard({ fund }: { fund: any }) {
+  console.log(fund);
   return (
     <div className="bg-white rounded-2xl border border-gray-100 p-6 hover:shadow-md transition">
       <div className="flex justify-between items-center mb-4">

@@ -11,7 +11,9 @@ export default function Header({ onMenuClick }: { onMenuClick: () => void }) {
           <Menu size={20} />
         </button>
 
-        <h1 className="text-lg font-semibold">Personal Fund Manager</h1>
+        <h1 className="text-sm sm:text-lg font-semibold">
+          Personal Fund Manager
+        </h1>
       </div>
 
       <button
